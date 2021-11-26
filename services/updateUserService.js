@@ -3,18 +3,17 @@ const dotenv = require('dotenv');
 dotenv.config({ path: 'config/config.env' })
 const JWT = require('jsonwebtoken');
 const secretKey = process.env.secretKey
+const {DecodeToken } = require('../services/loginAuthService')
 module.exports = {
     UpdateUser: async (req, res) => {
-        let token = req.headers.authorization
-        try {
-            var decoded = {};
+        // let token = req.headers.authorization
+        var token = await DecodeToken(req)
+        
 
-            if (token) {
-                decoded = JWT.verify(token, secretKey);
-            } else {
-                return res.send({ status: 400, msg: "please provide the token" })
-            }
-            let id = decoded.id
+        try {
+        //   console.log(token.id);
+          
+            let id = token.id
 
             let updateObject = {
                 name: req.body.name,

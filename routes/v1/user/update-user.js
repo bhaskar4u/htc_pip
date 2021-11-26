@@ -4,6 +4,6 @@ const { UpdateUser } = require("../../../services/updateUserService");
 
 
 
-router.put("/update", UpdateUser);
+router.put("/update",VerifyToken, UpdateUser);
 
 module.exports = router
