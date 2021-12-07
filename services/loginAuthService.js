@@ -20,9 +20,14 @@ module.exports = {
                     let token = await JWT.sign(payload, secretKey, {
                         expiresIn: "2h"
                     })
+                    let refreshToken = await JWT.sign(payload, secretKey, {
+                        expiresIn: "1m"
+                    })
                     res.status(200).send({ 
                         msg:"you have loggedin successfully",
-                        token:token })
+                        token:token,
+                     refreshToken:refreshToken
+                    })
                 } else {
                     res.send("password is not valid")
                 }
@@ -47,7 +52,7 @@ module.exports = {
         }
     },
     DecodeToken: (params) => {
-        var token = params.headers["authorization"] || params.query["token"];
+        var token = params.headers["authorization"] || params.query["token"] || params.query["refreshToken"] ;
         var decoded = {};
 
         if (token) {

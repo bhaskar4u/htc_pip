@@ -15,7 +15,8 @@ module.exports = {
             mobile: req.body.mobile,
             password: hashPwd,
             role:req.body.role,
-            age:req.body.age
+            age:req.body.age,
+            experience:req.body.experience
         })
         try {
             user.save()
